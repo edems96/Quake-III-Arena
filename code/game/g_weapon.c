@@ -76,7 +76,8 @@ qboolean CheckGauntletAttack( gentity_t *ent ) {
 	// set aiming directions
 	AngleVectors (ent->client->ps.viewangles, forward, right, up);
 
-	CalcMuzzlePoint ( ent, forward, right, up, muzzle );
+	//CalcMuzzlePoint ( ent, forward, right, up, muzzle );
+	CalcMuzzlePoint(ent, forward, muzzle);
 
 	VectorMA (muzzle, 32, forward, end);
 
@@ -779,7 +780,8 @@ CalcMuzzlePoint
 set muzzle location relative to pivoting eye
 ===============
 */
-void CalcMuzzlePoint ( gentity_t *ent, vec3_t forward, vec3_t right, vec3_t up, vec3_t muzzlePoint ) {
+//void CalcMuzzlePoint ( gentity_t *ent, vec3_t forward, vec3_t right, vec3_t up, vec3_t muzzlePoint ) {
+void CalcMuzzlePoint(gentity_t *ent, vec3_t forward, vec3_t muzzlePoint) {
 	VectorCopy( ent->s.pos.trBase, muzzlePoint );
 	muzzlePoint[2] += ent->client->ps.viewheight;
 	VectorMA( muzzlePoint, 14, forward, muzzlePoint );
