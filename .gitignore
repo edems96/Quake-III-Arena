@@ -50,6 +50,7 @@ build/
 [Bb]in/
 [Oo]bj/
 
+
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
@@ -214,3 +215,8 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+# Quake
+code/Debug_TA/*
+Debug_TA/*
+
