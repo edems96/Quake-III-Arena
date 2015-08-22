@@ -149,6 +149,12 @@ void QDECL Com_Printf( const char *fmt, ... ) {
 	Q_vsnprintf (msg, sizeof(msg), fmt, argptr);
 	va_end (argptr);
 
+
+	/*
+	FILE*f = fopen("printf.log", "a+");
+	fprintf(f, "%s\n", msg);
+	fclose(f); */
+
 	if ( rd_buffer ) {
 		if ((strlen (msg) + strlen(rd_buffer)) > (rd_buffersize - 1)) {
 			rd_flush(rd_buffer);

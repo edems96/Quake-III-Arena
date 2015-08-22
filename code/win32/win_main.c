@@ -537,7 +537,7 @@ void * QDECL Sys_LoadDll( const char *name, char *fqpath , int (QDECL **entryPoi
 	char	*fn;
 #ifdef NDEBUG
 	int		timestamp;
-  int   ret;
+	int   ret;
 #endif
 	char	filename[MAX_QPATH];
 
@@ -547,8 +547,7 @@ void * QDECL Sys_LoadDll( const char *name, char *fqpath , int (QDECL **entryPoi
 
 #ifdef NDEBUG
 	timestamp = Sys_Milliseconds();
-	if( ((timestamp - lastWarning) > (5 * 60000)) && !Cvar_VariableIntegerValue( "dedicated" )
-		&& !Cvar_VariableIntegerValue( "com_blindlyLoadDLLs" ) ) {
+	if( ((timestamp - lastWarning) > (5 * 60000)) && !Cvar_VariableIntegerValue( "dedicated" ) && !Cvar_VariableIntegerValue( "com_blindlyLoadDLLs" ) ) {
 		if (FS_FileExists(filename)) {
 			lastWarning = timestamp;
 			ret = MessageBoxEx( NULL, "You are about to load a .DLL executable that\n"
@@ -576,10 +575,11 @@ void * QDECL Sys_LoadDll( const char *name, char *fqpath , int (QDECL **entryPoi
 	basepath = Cvar_VariableString( "fs_basepath" );
 	cdpath = Cvar_VariableString( "fs_cdpath" );
 	gamedir = Cvar_VariableString( "fs_game" );
-
+	
 	fn = FS_BuildOSPath( basepath, gamedir, filename );
 	libHandle = LoadLibrary( fn );
-#ifndef NDEBUG
+
+#ifndef NDEBUG //notdefined
   if (libHandle)
     Com_Printf("LoadLibrary '%s' ok\n", fn);
   else

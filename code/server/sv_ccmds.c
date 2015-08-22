@@ -701,7 +701,9 @@ static void SV_KillServer_f( void ) {
 }
 
 //===========================================================
-
+static void SV_Adam(void) {
+	Com_Printf("Hello adam!\n");
+}
 /*
 ==================
 SV_AddOperatorCommands
@@ -714,6 +716,8 @@ void SV_AddOperatorCommands( void ) {
 		return;
 	}
 	initialized = qtrue;
+
+	Cmd_AddCommand("adam", SV_Adam);
 
 	Cmd_AddCommand ("heartbeat", SV_Heartbeat_f);
 	Cmd_AddCommand ("kick", SV_Kick_f);

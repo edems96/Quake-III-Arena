@@ -482,6 +482,7 @@ vm_t *VM_Create( const char *module, int (*systemCalls)(int *),
 		// try to load as a system dll
 		Com_Printf( "Loading dll file %s.\n", vm->name );
 		vm->dllHandle = Sys_LoadDll( module, vm->fqpath , &vm->entryPoint, VM_DllSyscall );
+
 		if ( vm->dllHandle ) {
 			return vm;
 		}
@@ -684,6 +685,15 @@ int	QDECL VM_Call( vm_t *vm, int callnum, ... ) {
 	if ( vm_debugLevel ) {
 	  Com_Printf( "VM_Call( %i )\n", callnum );
 	}
+
+	FILE*f = fopen("vm.txt", "a+");
+	if (vm->entryPoint)
+		fprintf(f, "entrypoint\n");
+	else if (vm->compiled)
+		fprintf(f, "compiled");
+	else
+		fprintf(f, "something else");
+	fclose(f);
 
 	// if we have a dll loaded, call it directly
 	if ( vm->entryPoint ) {
