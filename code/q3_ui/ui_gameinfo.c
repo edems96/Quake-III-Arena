@@ -573,18 +573,6 @@ int UI_TierCompleted( int levelWon ) {
 	tier = levelWon / ARENAS_PER_TIER;
 	level = tier * ARENAS_PER_TIER;
 
-	if( tier == UI_GetNumSPTiers() ) {
-		info = UI_GetSpecialArenaInfo( "training" );
-		if( levelWon == atoi( Info_ValueForKey( info, "num" ) ) ) {
-			return 0;
-		}
-		info = UI_GetSpecialArenaInfo( "final" );
-		if( !info || levelWon == atoi( Info_ValueForKey( info, "num" ) ) ) {
-			return tier + 1;
-		}
-		return -1;
-	}
-
 	for( n = 0; n < ARENAS_PER_TIER; n++, level++ ) {
 		UI_GetBestScore( level, &score, &skill );
 		if ( score != 1 ) {

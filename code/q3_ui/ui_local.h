@@ -51,16 +51,6 @@ extern vmCvar_t	ui_ctf_friendly;
 
 extern vmCvar_t	ui_arenasFile;
 extern vmCvar_t	ui_botsFile;
-extern vmCvar_t	ui_spScores1;
-extern vmCvar_t	ui_spScores2;
-extern vmCvar_t	ui_spScores3;
-extern vmCvar_t	ui_spScores4;
-extern vmCvar_t	ui_spScores5;
-extern vmCvar_t	ui_spAwards;
-extern vmCvar_t	ui_spVideos;
-extern vmCvar_t	ui_spSkill;
-
-extern vmCvar_t	ui_spSelection;
 
 extern vmCvar_t	ui_browserMaster;
 extern vmCvar_t	ui_browserGameType;
@@ -576,23 +566,6 @@ extern qboolean		m_entersound;
 extern uiStatic_t	uis;
 
 //
-// ui_spArena.c
-//
-void UI_SPArena_Start( const char *arenaInfo );
-
-//
-// ui_spPostgame.c
-//
-void UI_SPPostgameMenu_Cache( void );
-void UI_SPPostgameMenu_f( void );
-
-//
-// ui_spSkill.c
-//
-void UI_SPSkillMenu( const char *arenaInfo );
-void UI_SPSkillMenu_Cache( void );
-
-//
 // ui_syscalls.c
 //
 void			trap_Print( const char *string );
@@ -724,8 +697,6 @@ const char *UI_GetArenaInfoByNumber( int num );
 const char *UI_GetArenaInfoByMap( const char *map );
 const char *UI_GetSpecialArenaInfo( const char *tag );
 int UI_GetNumArenas( void );
-int UI_GetNumSPArenas( void );
-int UI_GetNumSPTiers( void );
 
 char *UI_GetBotInfoByNumber( int num );
 char *UI_GetBotInfoByName( const char *name );
@@ -740,9 +711,6 @@ int  UI_GetCurrentGame( void );
 void UI_NewGame( void );
 void UI_LogAwardData( int award, int data );
 int UI_GetAwardLevel( int award );
-
-void UI_SPUnlock_f( void );
-void UI_SPUnlockMedals_f( void );
 
 void UI_InitGameinfo( void );
 
