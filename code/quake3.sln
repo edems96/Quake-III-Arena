@@ -16,8 +16,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "quake3", "quake3.vcxproj", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "renderer", "renderer\renderer.vcxproj", "{AB424155-FBED-4D8D-B007-5B6CF93EA395}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ui", "ui\ui.vcxproj", "{A8EAC38E-C7DA-42F8-811D-77FD092B9D19}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Alpha|x86 = Debug Alpha|x86
@@ -155,22 +153,6 @@ Global
 		{AB424155-FBED-4D8D-B007-5B6CF93EA395}.Release|x86.Build.0 = Release|Win32
 		{AB424155-FBED-4D8D-B007-5B6CF93EA395}.vector|x86.ActiveCfg = vector|Win32
 		{AB424155-FBED-4D8D-B007-5B6CF93EA395}.vector|x86.Build.0 = vector|Win32
-		{A8EAC38E-C7DA-42F8-811D-77FD092B9D19}.Debug Alpha|x86.ActiveCfg = Debug TA|Win32
-		{A8EAC38E-C7DA-42F8-811D-77FD092B9D19}.Debug Alpha|x86.Build.0 = Debug TA|Win32
-		{A8EAC38E-C7DA-42F8-811D-77FD092B9D19}.Debug TA DEMO|x86.ActiveCfg = Debug TA|Win32
-		{A8EAC38E-C7DA-42F8-811D-77FD092B9D19}.Debug TA DEMO|x86.Build.0 = Debug TA|Win32
-		{A8EAC38E-C7DA-42F8-811D-77FD092B9D19}.Debug TA|x86.ActiveCfg = Debug TA|Win32
-		{A8EAC38E-C7DA-42F8-811D-77FD092B9D19}.Debug TA|x86.Build.0 = Debug TA|Win32
-		{A8EAC38E-C7DA-42F8-811D-77FD092B9D19}.Debug|x86.ActiveCfg = Debug|Win32
-		{A8EAC38E-C7DA-42F8-811D-77FD092B9D19}.Release Alpha|x86.ActiveCfg = Release TA|Win32
-		{A8EAC38E-C7DA-42F8-811D-77FD092B9D19}.Release Alpha|x86.Build.0 = Release TA|Win32
-		{A8EAC38E-C7DA-42F8-811D-77FD092B9D19}.Release TA DEMO|x86.ActiveCfg = Release TA|Win32
-		{A8EAC38E-C7DA-42F8-811D-77FD092B9D19}.Release TA DEMO|x86.Build.0 = Release TA|Win32
-		{A8EAC38E-C7DA-42F8-811D-77FD092B9D19}.Release TA|x86.ActiveCfg = Release TA|Win32
-		{A8EAC38E-C7DA-42F8-811D-77FD092B9D19}.Release TA|x86.Build.0 = Release TA|Win32
-		{A8EAC38E-C7DA-42F8-811D-77FD092B9D19}.Release|x86.ActiveCfg = Release|Win32
-		{A8EAC38E-C7DA-42F8-811D-77FD092B9D19}.vector|x86.ActiveCfg = vector|Win32
-		{A8EAC38E-C7DA-42F8-811D-77FD092B9D19}.vector|x86.Build.0 = vector|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
