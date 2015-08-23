@@ -272,7 +272,7 @@ void UI_MainMenu( void ) {
 	int		style = UI_CENTER | UI_DROPSHADOW;
 
 	trap_Cvar_Set( "sv_killserver", "1" );
-
+	
 	// cdkey was requested HERE
 	
 	memset( &s_main, 0 ,sizeof(mainmenu_t) );
