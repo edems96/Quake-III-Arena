@@ -906,7 +906,7 @@ void CL_RequestAuthorization( void ) {
 
 	if ( Cvar_VariableValue( "fs_restrict" ) ) {
 		Q_strncpyz( nums, "demota", sizeof( nums ) );
-	} else {
+	} /*else {
 		// only grab the alphanumeric values from the cdkey, to avoid any dashes or spaces
 		j = 0;
 		l = strlen( cl_cdkey );
@@ -923,7 +923,7 @@ void CL_RequestAuthorization( void ) {
 			}
 		}
 		nums[j] = 0;
-	}
+	} */
 
 	fs = Cvar_Get ("cl_anonymous", "0", CVAR_INIT|CVAR_SYSTEMINFO );
 
@@ -3257,6 +3257,7 @@ void CL_ShowIP_f(void) {
 bool CL_CDKeyValidate
 =================
 */
+/*
 qboolean CL_CDKeyValidate( const char *key, const char *checksum ) {
 	char	ch;
 	byte	sum;
@@ -3314,6 +3315,4 @@ qboolean CL_CDKeyValidate( const char *key, const char *checksum ) {
 	}
 
 	return qfalse;
-}
-
-
+} */

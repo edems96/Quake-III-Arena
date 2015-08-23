@@ -80,8 +80,9 @@ extern vmCvar_t	ui_server14;
 extern vmCvar_t	ui_server15;
 extern vmCvar_t	ui_server16;
 
+/*
 extern vmCvar_t	ui_cdkey;
-extern vmCvar_t	ui_cdkeychecked;
+extern vmCvar_t	ui_cdkeychecked; */
 
 
 //
@@ -625,10 +626,13 @@ void			trap_LAN_ClearPing( int n );
 void			trap_LAN_GetPing( int n, char *buf, int buflen, int *pingtime );
 void			trap_LAN_GetPingInfo( int n, char *buf, int buflen );
 int				trap_MemoryRemaining( void );
+
+/*
 void			trap_GetCDKey( char *buf, int buflen );
 void			trap_SetCDKey( char *buf );
 
-qboolean               trap_VerifyCDKey( const char *key, const char *chksum); // bk001208 - RC4
+qboolean        trap_VerifyCDKey( const char *key, const char *chksum); // bk001208 - RC4
+*/
 
 void			trap_SetPbClStatus( int status );
 

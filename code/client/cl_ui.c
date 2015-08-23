@@ -686,7 +686,7 @@ void Key_SetCatcher( int catcher ) {
 CLUI_GetCDKey
 ====================
 */
-static void CLUI_GetCDKey( char *buf, int buflen ) {
+/*static void CLUI_GetCDKey( char *buf, int buflen ) {
 	cvar_t	*fs;
 	fs = Cvar_Get ("fs_game", "", CVAR_INIT|CVAR_SYSTEMINFO );
 	if (UI_usesUniqueCDKey() && fs && fs->string[0] != 0) {
@@ -696,7 +696,7 @@ static void CLUI_GetCDKey( char *buf, int buflen ) {
 		Com_Memcpy( buf, cl_cdkey, 16);
 		buf[16] = 0;
 	}
-}
+}*/
 
 
 /*
@@ -704,7 +704,7 @@ static void CLUI_GetCDKey( char *buf, int buflen ) {
 CLUI_SetCDKey
 ====================
 */
-static void CLUI_SetCDKey( char *buf ) {
+/*static void CLUI_SetCDKey( char *buf ) {
 	cvar_t	*fs;
 	fs = Cvar_Get ("fs_game", "", CVAR_INIT|CVAR_SYSTEMINFO );
 	if (UI_usesUniqueCDKey() && fs && fs->string[0] != 0) {
@@ -717,7 +717,7 @@ static void CLUI_SetCDKey( char *buf ) {
 		// set the flag so the fle will be written at the next opportunity
 		cvar_modifiedFlags |= CVAR_ARCHIVE;
 	}
-}
+}*/
 
 /*
 ====================
@@ -1019,13 +1019,13 @@ int CL_UISystemCalls( int *args ) {
 	case UI_MEMORY_REMAINING:
 		return Hunk_MemoryRemaining();
 
-	case UI_GET_CDKEY:
+	/*case UI_GET_CDKEY:
 		CLUI_GetCDKey( VMA(1), args[2] );
 		return 0;
 
 	case UI_SET_CDKEY:
 		CLUI_SetCDKey( VMA(1) );
-		return 0;
+		return 0; */
 	
 	case UI_SET_PBCLSTATUS:
 		return 0;	
@@ -1106,11 +1106,9 @@ int CL_UISystemCalls( int *args ) {
 		re.RemapShader( VMA(1), VMA(2), VMA(3) );
 		return 0;
 
-	case UI_VERIFY_CDKEY:
-		return CL_CDKeyValidate(VMA(1), VMA(2));
+	/*case UI_VERIFY_CDKEY:
+		return CL_CDKeyValidate(VMA(1), VMA(2)); */
 
-
-		
 	default:
 		Com_Error( ERR_DROP, "Bad UI system trap: %i", args[0] );
 

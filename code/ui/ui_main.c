@@ -3228,7 +3228,7 @@ static void UI_RunMenuScript(char **args) {
 			Controls_SetDefaults();
 			trap_Cvar_Set("com_introPlayed", "1" );
 			trap_Cmd_ExecuteText( EXEC_APPEND, "vid_restart\n" );
-		} else if (Q_stricmp(name, "getCDKey") == 0) {
+		}/** else if (Q_stricmp(name, "getCDKey") == 0) {
 			char out[17];
 			trap_GetCDKey(buff, 17);
 			trap_Cvar_Set("cdkey1", "");
@@ -3246,7 +3246,7 @@ static void UI_RunMenuScript(char **args) {
 				trap_Cvar_Set("cdkey4", out);
 			}
 
-		} else if (Q_stricmp(name, "verifyCDKey") == 0) {
+		}else if (Q_stricmp(name, "verifyCDKey") == 0) {
 			buff[0] = '\0';
 			Q_strcat(buff, 1024, UI_Cvar_VariableString("cdkey1")); 
 			Q_strcat(buff, 1024, UI_Cvar_VariableString("cdkey2")); 
@@ -3259,7 +3259,7 @@ static void UI_RunMenuScript(char **args) {
 			} else {
 				trap_Cvar_Set("ui_cdkeyvalid", "CD Key does not appear to be valid.");
 			}
-		} else if (Q_stricmp(name, "loadArenas") == 0) {
+		} */else if (Q_stricmp(name, "loadArenas") == 0) {
 			UI_LoadArenas();
 			UI_MapCountByGameType(qfalse);
 			Menu_SetFeederSelection(NULL, FEEDER_ALLMAPS, 0, "createserver");
@@ -5270,18 +5270,18 @@ void _UI_SetActiveMenu( uiMenuCommand_t menu ) {
 			trap_Key_SetCatcher( KEYCATCH_UI );
       Menus_ActivateByName("team");
 		  return;
-	  case UIMENU_NEED_CD:
+	 // case UIMENU_NEED_CD:
 			// no cd check in TA
 			//trap_Key_SetCatcher( KEYCATCH_UI );
       //Menus_ActivateByName("needcd");
 		  //UI_ConfirmMenu( "Insert the CD", NULL, NeedCDAction );
-		  return;
-	  case UIMENU_BAD_CD_KEY:
+	//	  return;
+	 // case UIMENU_BAD_CD_KEY:
 			// no cd check in TA
 			//trap_Key_SetCatcher( KEYCATCH_UI );
       //Menus_ActivateByName("badcd");
 		  //UI_ConfirmMenu( "Bad CD Key", NULL, NeedCDKeyAction );
-		  return;
+		//  return;
 	  case UIMENU_POSTGAME:
 			//trap_Cvar_Set( "sv_killserver", "1" );
 			trap_Key_SetCatcher( KEYCATCH_UI );

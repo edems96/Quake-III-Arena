@@ -1425,7 +1425,7 @@ typedef enum _flag_status {
 #define SAY_TEAM	1
 #define SAY_TELL	2
 
-#define CDKEY_LEN 16
+//#define CDKEY_LEN 16
 #define CDCHKSUM_LEN 2
 
 

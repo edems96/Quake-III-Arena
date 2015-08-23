@@ -2689,8 +2689,8 @@ void FS_Shutdown( qboolean closemfp ) {
 #endif
 }
 
-void Com_AppendCDKey( const char *filename );
-void Com_ReadCDKey( const char *filename );
+/*void Com_AppendCDKey( const char *filename );
+void Com_ReadCDKey( const char *filename ); */
  
 /*
 ================
@@ -2795,11 +2795,11 @@ static void FS_Startup( const char *gameName ) {
 		}
 	}
 
-	Com_ReadCDKey( "baseq3" );
+	//Com_ReadCDKey( "baseq3" );
 	fs = Cvar_Get ("fs_game", "", CVAR_INIT|CVAR_SYSTEMINFO );
-	if (fs && fs->string[0] != 0) {
+	/* if (fs && fs->string[0] != 0) {
 		Com_AppendCDKey( fs->string );
-	}
+	} */
 
 	// add our commands
 	Cmd_AddCommand ("path", FS_Path_f);

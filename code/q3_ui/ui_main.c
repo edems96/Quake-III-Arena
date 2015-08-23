@@ -79,6 +79,7 @@ int vmMain( int command, int arg0, int arg1, int arg2, int arg3, int arg4, int a
 	case UI_DRAW_CONNECT_SCREEN:
 		UI_DrawConnectScreen( arg0 );
 		return 0;
+
 	case UI_HASUNIQUECDKEY:				// mod authors need to observe this
 		return qtrue;  // bk010117 - change this to qfalse for mods!
 	}
@@ -155,7 +156,7 @@ vmCvar_t	ui_server14;
 vmCvar_t	ui_server15;
 vmCvar_t	ui_server16;
 
-vmCvar_t	ui_cdkeychecked;
+//vmCvar_t	ui_cdkeychecked;
 
 // bk001129 - made static to avoid aliasing.
 static cvarTable_t		cvarTable[] = {
