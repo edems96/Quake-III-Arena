@@ -32,11 +32,11 @@ MAIN MENU
 #include "ui_local.h"
 
 
-#define ID_SINGLEPLAYER			10
+//#define ID_SINGLEPLAYER			10
 #define ID_MULTIPLAYER			11
 #define ID_SETUP				12
 #define ID_DEMOS				13
-#define ID_CINEMATICS			14
+//#define ID_CINEMATICS			14
 #define ID_TEAMARENA		15
 #define ID_MODS					16
 #define ID_EXIT					17
@@ -48,11 +48,9 @@ MAIN MENU
 typedef struct {
 	menuframework_s	menu;
 
-	menutext_s		singleplayer;
 	menutext_s		multiplayer;
 	menutext_s		setup;
 	menutext_s		demos;
-	menutext_s		cinematics;
 	menutext_s		teamArena;
 	menutext_s		mods;
 	menutext_s		exit;
@@ -96,9 +94,6 @@ void Main_MenuEvent (void* ptr, int event) {
 	}
 
 	switch( ((menucommon_s*)ptr)->id ) {
-	case ID_SINGLEPLAYER:
-		UI_SPLevelMenu();
-		break;
 
 	case ID_MULTIPLAYER:
 		UI_ArenaServersMenu();
@@ -110,10 +105,6 @@ void Main_MenuEvent (void* ptr, int event) {
 
 	case ID_DEMOS:
 		UI_DemosMenu();
-		break;
-
-	case ID_CINEMATICS:
-		UI_CinematicsMenu();
 		break;
 
 	case ID_MODS:
@@ -221,12 +212,7 @@ static void Main_MenuDraw( void ) {
 		Menu_Draw( &s_main.menu );		
 	}
 
-	if (uis.demoversion) {
-		UI_DrawProportionalString( 320, 372, "DEMO      FOR MATURE AUDIENCES      DEMO", UI_CENTER|UI_SMALLFONT, color );
-		UI_DrawString( 320, 400, "Quake III Arena(c) 1999-2000, Id Software, Inc.  All Rights Reserved", UI_CENTER|UI_SMALLFONT, color );
-	} else {
-		UI_DrawString( 320, 450, "Quake III Arena(c) 1999-2000, Id Software, Inc.  All Rights Reserved", UI_CENTER|UI_SMALLFONT, color );
-	}
+	UI_DrawString( 320, 450, "Quake III Arena(c) 1999-2000, Id Software, Inc.  All Rights Reserved", UI_CENTER|UI_SMALLFONT, color );
 }
 
 
@@ -303,17 +289,6 @@ void UI_MainMenu( void ) {
 	s_main.menu.showlogo = qtrue;
 
 	y = 134;
-	s_main.singleplayer.generic.type		= MTYPE_PTEXT;
-	s_main.singleplayer.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_main.singleplayer.generic.x			= 320;
-	s_main.singleplayer.generic.y			= y;
-	s_main.singleplayer.generic.id			= ID_SINGLEPLAYER;
-	s_main.singleplayer.generic.callback	= Main_MenuEvent; 
-	s_main.singleplayer.string				= "SINGLE PLAYER";
-	s_main.singleplayer.color				= color_red;
-	s_main.singleplayer.style				= style;
-
-	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.multiplayer.generic.type			= MTYPE_PTEXT;
 	s_main.multiplayer.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
 	s_main.multiplayer.generic.x			= 320;
@@ -331,7 +306,7 @@ void UI_MainMenu( void ) {
 	s_main.setup.generic.y					= y;
 	s_main.setup.generic.id					= ID_SETUP;
 	s_main.setup.generic.callback			= Main_MenuEvent; 
-	s_main.setup.string						= "SETUP";
+	s_main.setup.string						= "Options";
 	s_main.setup.color						= color_red;
 	s_main.setup.style						= style;
 
@@ -345,17 +320,6 @@ void UI_MainMenu( void ) {
 	s_main.demos.string						= "DEMOS";
 	s_main.demos.color						= color_red;
 	s_main.demos.style						= style;
-
-	y += MAIN_MENU_VERTICAL_SPACING;
-	s_main.cinematics.generic.type			= MTYPE_PTEXT;
-	s_main.cinematics.generic.flags			= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_main.cinematics.generic.x				= 320;
-	s_main.cinematics.generic.y				= y;
-	s_main.cinematics.generic.id			= ID_CINEMATICS;
-	s_main.cinematics.generic.callback		= Main_MenuEvent; 
-	s_main.cinematics.string				= "CINEMATICS";
-	s_main.cinematics.color					= color_red;
-	s_main.cinematics.style					= style;
 
 	if (UI_TeamArenaExists()) {
 		teamArena = qtrue;
@@ -393,11 +357,9 @@ void UI_MainMenu( void ) {
 	s_main.exit.color						= color_red;
 	s_main.exit.style						= style;
 
-	Menu_AddItem( &s_main.menu,	&s_main.singleplayer );
 	Menu_AddItem( &s_main.menu,	&s_main.multiplayer );
 	Menu_AddItem( &s_main.menu,	&s_main.setup );
 	Menu_AddItem( &s_main.menu,	&s_main.demos );
-	Menu_AddItem( &s_main.menu,	&s_main.cinematics );
 	if (teamArena) {
 		Menu_AddItem( &s_main.menu,	&s_main.teamArena );
 	}

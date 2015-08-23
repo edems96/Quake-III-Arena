@@ -30,9 +30,6 @@
     <ClCompile Include="ui_atoms.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ui_cinematics.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ui_confirm.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -115,9 +112,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ui_specifyserver.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ui_splevel.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ui_sppostgame.c">

@@ -66,7 +66,6 @@ void Reset_MenuEvent(void* ptr, int event) {
 	UI_NewGame();
 	trap_Cvar_SetValue( "ui_spSelection", 0 );
 	UI_PopMenu();
-	UI_SPLevelMenu();
 }
 
 

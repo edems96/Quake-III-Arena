@@ -367,13 +367,6 @@ extern void UI_DemosMenu( void );
 extern void Demos_Cache( void );
 
 //
-// ui_cinematics.c
-//
-extern void UI_CinematicsMenu( void );
-extern void UI_CinematicsMenu_f( void );
-extern void UI_CinematicsMenu_Cache( void );
-
-//
 // ui_mods.c
 //
 extern void UI_ModsMenu( void );
@@ -581,14 +574,6 @@ extern void			UI_Refresh( int time );
 extern void			UI_StartDemoLoop( void );
 extern qboolean		m_entersound;
 extern uiStatic_t	uis;
-
-//
-// ui_spLevel.c
-//
-void UI_SPLevelMenu_Cache( void );
-void UI_SPLevelMenu( void );
-void UI_SPLevelMenu_f( void );
-void UI_SPLevelMenu_ReInit( void );
 
 //
 // ui_spArena.c

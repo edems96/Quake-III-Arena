@@ -967,7 +967,6 @@ void UI_Cache_f( void ) {
 	PlayerSettings_Cache();
 	Controls_Cache();
 	Demos_Cache();
-	UI_CinematicsMenu_Cache();
 	Preferences_Cache();
 	ServerInfo_Cache();
 	SpecifyServer_Cache();
@@ -979,7 +978,6 @@ void UI_Cache_f( void ) {
 	UI_DisplayOptionsMenu_Cache();
 	UI_SoundOptionsMenu_Cache();
 	UI_NetworkOptionsMenu_Cache();
-	UI_SPLevelMenu_Cache();
 	UI_SPSkillMenu_Cache();
 	UI_SPPostgameMenu_Cache();
 	TeamMain_Cache();
@@ -1005,11 +1003,6 @@ qboolean UI_ConsoleCommand( int realTime ) {
 	// ensure minimum menu data is available
 	Menu_Cache();
 
-	if ( Q_stricmp (cmd, "levelselect") == 0 ) {
-		UI_SPLevelMenu_f();
-		return qtrue;
-	}
-
 	if ( Q_stricmp (cmd, "postgame") == 0 ) {
 		UI_SPPostgameMenu_f();
 		return qtrue;
@@ -1017,11 +1010,6 @@ qboolean UI_ConsoleCommand( int realTime ) {
 
 	if ( Q_stricmp (cmd, "ui_cache") == 0 ) {
 		UI_Cache_f();
-		return qtrue;
-	}
-
-	if ( Q_stricmp (cmd, "ui_cinematics") == 0 ) {
-		UI_CinematicsMenu_f();
 		return qtrue;
 	}
 

@@ -772,8 +772,6 @@ void UI_SPUnlock_f( void ) {
 	}
 
 	trap_Print( "All levels unlocked at skill level 1\n" );
-
-	UI_SPLevelMenu_ReInit();
 }
 
 
