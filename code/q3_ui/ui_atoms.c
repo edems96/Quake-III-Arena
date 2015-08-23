@@ -796,36 +796,15 @@ qboolean UI_IsFullscreen( void ) {
 	return qfalse;
 }
 
-static void NeedCDAction( qboolean result ) {
-	if ( !result ) {
-		trap_Cmd_ExecuteText( EXEC_APPEND, "quit\n" );
-	}
-}
-
-static void NeedCDKeyAction( qboolean result ) {
-	if ( !result ) {
-		trap_Cmd_ExecuteText( EXEC_APPEND, "quit\n" );
-	}
-}
-
 void UI_SetActiveMenu( uiMenuCommand_t menu ) {
 	// this should be the ONLY way the menu system is brought up
 	// enusure minumum menu data is cached
 	Menu_Cache();
 
 	switch ( menu ) {
-	case UIMENU_NONE:
-		UI_ForceMenuOff();
-		return;
-	case UIMENU_MAIN:
-		UI_MainMenu();
-		return;
-	case UIMENU_NEED_CD:
-		UI_ConfirmMenu( "Insert the CD", (voidfunc_f)NULL, NeedCDAction );
-		return;
-	case UIMENU_BAD_CD_KEY:
-		UI_ConfirmMenu( "Bad CD Key", (voidfunc_f)NULL, NeedCDKeyAction );
-		return;
+		case UIMENU_NONE: UI_ForceMenuOff(); return;
+		case UIMENU_MAIN: UI_MainMenu(); return;
+	
 	case UIMENU_INGAME:
 		/*
 		//GRank
@@ -1000,11 +979,6 @@ qboolean UI_ConsoleCommand( int realTime ) {
 
 	// ensure minimum menu data is available
 	Menu_Cache();
-
-	/*if ( Q_stricmp (cmd, "postgame") == 0 ) {
-		UI_SPPostgameMenu_f();
-		return qtrue;
-	} */
 
 	if ( Q_stricmp (cmd, "ui_cache") == 0 ) {
 		UI_Cache_f();

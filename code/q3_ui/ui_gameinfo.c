@@ -568,7 +568,6 @@ int UI_TierCompleted( int levelWon ) {
 	int			tier;
 	int			score;
 	int			skill;
-	const char	*info;
 
 	tier = levelWon / ARENAS_PER_TIER;
 	level = tier * ARENAS_PER_TIER;

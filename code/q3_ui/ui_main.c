@@ -69,6 +69,7 @@ int vmMain( int command, int arg0, int arg1, int arg2, int arg3, int arg4, int a
 		return UI_IsFullscreen();
 
 	case UI_SET_ACTIVE_MENU:
+		Com_Printf("active menu: %d\n", arg0);
 		UI_SetActiveMenu( arg0 );
 		return 0;
 
@@ -211,9 +212,7 @@ static cvarTable_t		cvarTable[] = {
 	{ &ui_server13, "server13", "", CVAR_ARCHIVE },
 	{ &ui_server14, "server14", "", CVAR_ARCHIVE },
 	{ &ui_server15, "server15", "", CVAR_ARCHIVE },
-	{ &ui_server16, "server16", "", CVAR_ARCHIVE },
-
-	{ &ui_cdkeychecked, "ui_cdkeychecked", "0", CVAR_ROM }
+	{ &ui_server16, "server16", "", CVAR_ARCHIVE }
 };
 
 // bk001129 - made static to avoid aliasing
