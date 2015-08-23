@@ -30,9 +30,6 @@
     <ClCompile Include="ui_atoms.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ui_cdkey.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ui_cinematics.c">
       <Filter>Source Files</Filter>
     </ClCompile>

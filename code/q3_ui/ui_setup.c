@@ -123,18 +123,6 @@ static void UI_SetupMenu_Event( void *ptr, int event ) {
 		UI_PreferencesMenu();
 		break;
 
-	case ID_CDKEY:
-		UI_CDKeyMenu();
-		break;
-
-//	case ID_LOAD:
-//		UI_LoadConfigMenu();
-//		break;
-
-//	case ID_SAVE:
-//		UI_SaveConfigMenu();
-//		break;
-
 	case ID_DEFAULTS:
 		UI_ConfirmMenu( "SET TO DEFAULTS?", Setup_ResetDefaults_Draw, Setup_ResetDefaults_Action );
 		break;
