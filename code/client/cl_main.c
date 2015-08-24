@@ -884,7 +884,6 @@ in anyway.
 */
 void CL_RequestAuthorization( void ) {
 	char	nums[64];
-	int		i, j, l;
 	cvar_t	*fs;
 
 	if ( !cls.authorizeServer.port ) {
@@ -906,24 +905,7 @@ void CL_RequestAuthorization( void ) {
 
 	if ( Cvar_VariableValue( "fs_restrict" ) ) {
 		Q_strncpyz( nums, "demota", sizeof( nums ) );
-	} /*else {
-		// only grab the alphanumeric values from the cdkey, to avoid any dashes or spaces
-		j = 0;
-		l = strlen( cl_cdkey );
-		if ( l > 32 ) {
-			l = 32;
-		}
-		for ( i = 0 ; i < l ; i++ ) {
-			if ( ( cl_cdkey[i] >= '0' && cl_cdkey[i] <= '9' )
-				|| ( cl_cdkey[i] >= 'a' && cl_cdkey[i] <= 'z' )
-				|| ( cl_cdkey[i] >= 'A' && cl_cdkey[i] <= 'Z' )
-				) {
-				nums[j] = cl_cdkey[i];
-				j++;
-			}
-		}
-		nums[j] = 0;
-	} */
+	}
 
 	fs = Cvar_Get ("cl_anonymous", "0", CVAR_INIT|CVAR_SYSTEMINFO );
 
@@ -2155,6 +2137,13 @@ void CL_StartHunkUsers( void ) {
 	if ( !cls.uiStarted ) {
 		cls.uiStarted = qtrue;
 		CL_InitUI();
+	}
+
+	// ACCSYS INIT HERE
+
+	if (!cls.asStarted) {
+		cls.asStarted = qtrue;
+		AS_InitVM();
 	}
 }
 

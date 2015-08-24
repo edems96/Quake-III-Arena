@@ -1142,24 +1142,14 @@ CL_InitUI
 
 void CL_InitUI( void ) {
 	int		v;
-	vmInterpret_t		interpret;
 
-	// load the dll or bytecode
-	if ( cl_connectedToPureServer != 0 ) {
-		// if sv_pure is set we only allow qvms to be loaded
-		interpret = VMI_COMPILED;
-	}
-	else 
-		interpret = Cvar_VariableValue( "vm_ui" );
-
-	uivm = VM_Create( "ui", CL_UISystemCalls, interpret );
+	uivm = VM_Create("ui", CL_UISystemCalls);
 
 	if ( !uivm ) 
 		Com_Error( ERR_FATAL, "VM_Create on UI failed" );
 
-
 	// sanity check
-	v = VM_Call( uivm, UI_GETAPIVERSION );
+	v = VM_Call( uivm, UI_GETAPIVERSION);
 
 	if (v == UI_OLD_API_VERSION) {
 //		Com_Printf(S_COLOR_YELLOW "WARNING: loading old Quake III Arena User Interface version %d\n", v );

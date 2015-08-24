@@ -260,6 +260,7 @@ typedef struct {
 	qboolean	soundRegistered;
 	qboolean	uiStarted;
 	qboolean	cgameStarted;
+	qboolean	asStarted;
 
 	int			framecount;
 	int			frametime;			// msec since last frame
@@ -509,6 +510,9 @@ int Key_GetCatcher( void );
 void Key_SetCatcher( int catcher );
 void LAN_LoadCachedServers();
 void LAN_SaveServersToCache();
+
+// cl_as.c
+void AS_InitVM();
 
 
 //

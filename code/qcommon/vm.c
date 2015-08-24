@@ -40,7 +40,7 @@ vm_t	*currentVM = NULL; // bk001212
 vm_t	*lastVM    = NULL; // bk001212
 int		vm_debugLevel;
 
-#define	MAX_VM		3
+#define	MAX_VM		4
 vm_t	vmTable[MAX_VM];
 
 
@@ -369,7 +369,7 @@ vm_t *VM_Restart( vm_t *vm ) {
 
 		VM_Free( vm );
 
-		vm = VM_Create( name, systemCall, VMI_NATIVE );
+		vm = VM_Create( name, systemCall);
 		return vm;
 	}
 
@@ -432,8 +432,7 @@ it will attempt to load as a system dll
 
 #define	STACK_SIZE	0x20000
 
-vm_t *VM_Create( const char *module, int (*systemCalls)(int *), 
-				vmInterpret_t interpret ) {
+vm_t *VM_Create(const char *module, int (*systemCalls)(int *)) {
 	vm_t		*vm;
 	vmHeader_t	*header;
 	int			length;
@@ -471,98 +470,15 @@ vm_t *VM_Create( const char *module, int (*systemCalls)(int *),
 	Q_strncpyz( vm->name, module, sizeof( vm->name ) );
 	vm->systemCall = systemCalls;
 
-	// never allow dll loading with a demo
-	if ( interpret == VMI_NATIVE ) {
-		if ( Cvar_VariableValue( "fs_restrict" ) ) {
-			interpret = VMI_COMPILED;
-		}
+	Com_Printf( "Loading dll file '%s'.\n", vm->name );
+	vm->dllHandle = Sys_LoadDll( module, vm->fqpath , &vm->entryPoint, VM_DllSyscall );
+
+	if ( vm->dllHandle ) {
+		return vm;
 	}
 
-	if ( interpret == VMI_NATIVE ) {
-		// try to load as a system dll
-		Com_Printf( "Loading dll file %s.\n", vm->name );
-		vm->dllHandle = Sys_LoadDll( module, vm->fqpath , &vm->entryPoint, VM_DllSyscall );
-
-		if ( vm->dllHandle ) {
-			return vm;
-		}
-
-		Com_Printf( "Failed to load dll, looking for qvm.\n" );
-		interpret = VMI_COMPILED;
-	}
-
-	// load the image
-	Com_sprintf( filename, sizeof(filename), "vm/%s.qvm", vm->name );
-	Com_Printf( "Loading vm file %s.\n", filename );
-	length = FS_ReadFile( filename, (void **)&header );
-	if ( !header ) {
-		Com_Printf( "Failed.\n" );
-		VM_Free( vm );
-		return NULL;
-	}
-
-	// byte swap the header
-	for ( i = 0 ; i < sizeof( *header ) / 4 ; i++ ) {
-		((int *)header)[i] = LittleLong( ((int *)header)[i] );
-	}
-
-	// validate
-	if ( header->vmMagic != VM_MAGIC
-		|| header->bssLength < 0 
-		|| header->dataLength < 0 
-		|| header->litLength < 0 
-		|| header->codeLength <= 0 ) {
-		VM_Free( vm );
-		Com_Error( ERR_FATAL, "%s has bad header", filename );
-	}
-
-	// round up to next power of 2 so all data operations can
-	// be mask protected
-	dataLength = header->dataLength + header->litLength + header->bssLength;
-	for ( i = 0 ; dataLength > ( 1 << i ) ; i++ ) {
-	}
-	dataLength = 1 << i;
-
-	// allocate zero filled space for initialized and uninitialized data
-	vm->dataBase = Hunk_Alloc( dataLength, h_high );
-	vm->dataMask = dataLength - 1;
-
-	// copy the intialized data
-	Com_Memcpy( vm->dataBase, (byte *)header + header->dataOffset, header->dataLength + header->litLength );
-
-	// byte swap the longs
-	for ( i = 0 ; i < header->dataLength ; i += 4 ) {
-		*(int *)(vm->dataBase + i) = LittleLong( *(int *)(vm->dataBase + i ) );
-	}
-
-	// allocate space for the jump targets, which will be filled in by the compile/prep functions
-	vm->instructionPointersLength = header->instructionCount * 4;
-	vm->instructionPointers = Hunk_Alloc( vm->instructionPointersLength, h_high );
-
-	// copy or compile the instructions
-	vm->codeLength = header->codeLength;
-
-	if ( interpret >= VMI_COMPILED ) {
-		vm->compiled = qtrue;
-		VM_Compile( vm, header );
-	} else {
-		vm->compiled = qfalse;
-		VM_PrepareInterpreter( vm, header );
-	}
-
-	// free the original file
-	FS_FreeFile( header );
-
-	// load the map file
-	VM_LoadSymbols( vm );
-
-	// the stack is implicitly at the end of the image
-	vm->programStack = vm->dataMask + 1;
-	vm->stackBottom = vm->programStack - STACK_SIZE;
-
-	Com_Printf("%s loaded in %d bytes on the hunk\n", module, remaining - Hunk_MemoryRemaining());
-
-	return vm;
+	Com_Printf( "Failed to load dll!\n" );
+	return NULL;
 }
 
 /*
@@ -571,22 +487,11 @@ VM_Free
 ==============
 */
 void VM_Free( vm_t *vm ) {
-
 	if ( vm->dllHandle ) {
 		Sys_UnloadDll( vm->dllHandle );
 		Com_Memset( vm, 0, sizeof( *vm ) );
 	}
-#if 0	// now automatically freed by hunk
-	if ( vm->codeBase ) {
-		Z_Free( vm->codeBase );
-	}
-	if ( vm->dataBase ) {
-		Z_Free( vm->dataBase );
-	}
-	if ( vm->instructionPointers ) {
-		Z_Free( vm->instructionPointers );
-	}
-#endif
+
 	Com_Memset( vm, 0, sizeof( *vm ) );
 
 	currentVM = NULL;
@@ -683,17 +588,9 @@ int	QDECL VM_Call( vm_t *vm, int callnum, ... ) {
 	lastVM = vm;
 
 	if ( vm_debugLevel ) {
-	  Com_Printf( "VM_Call( %i )\n", callnum );
+		Com_Printf( "VM_Call( %i )\n", callnum );
 	}
 
-	FILE*f = fopen("vm.txt", "a+");
-	if (vm->entryPoint)
-		fprintf(f, "entrypoint\n");
-	else if (vm->compiled)
-		fprintf(f, "compiled");
-	else
-		fprintf(f, "something else");
-	fclose(f);
 
 	// if we have a dll loaded, call it directly
 	if ( vm->entryPoint ) {

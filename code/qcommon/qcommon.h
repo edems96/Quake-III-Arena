@@ -285,11 +285,12 @@ VIRTUAL MACHINE
 
 typedef struct vm_s vm_t;
 
+/*
 typedef enum {
 	VMI_NATIVE,
 	VMI_BYTECODE,
 	VMI_COMPILED
-} vmInterpret_t;
+} vmInterpret_t; */
 
 typedef enum {
 	TRAP_MEMSET = 100,
@@ -310,8 +311,7 @@ typedef enum {
 } sharedTraps_t;
 
 void	VM_Init( void );
-vm_t	*VM_Create( const char *module, int (*systemCalls)(int *), 
-				   vmInterpret_t interpret );
+vm_t	*VM_Create( const char *module, int (*systemCalls)(int *));
 // module should be bare: "cgame", not "cgame.dll" or "vm/cgame.qvm"
 
 void	VM_Free( vm_t *vm );

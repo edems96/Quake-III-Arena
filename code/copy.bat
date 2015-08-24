@@ -9,3 +9,6 @@ copy C:\Users\edems\Documents\GitHub\Quake-III-Arena\code\game\Release\qagamex86
 
 echo "Copy uix86.dll"
 copy C:\Users\edems\Documents\GitHub\Quake-III-Arena\code\q3_ui\Release\uix86.dll D:\games\Quake3Arena\baseq3\uix86.dll
+
+echo "Copy asx86.dll"
+copy C:\Users\edems\Documents\GitHub\Quake-III-Arena\AccountSystem\Release\asx86.dll D:\games\Quake3Arena\baseq3\asx86.dll
