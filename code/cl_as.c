@@ -26,5 +26,5 @@ void AS_InitVM() {
 		Com_Error(ERR_DROP, "VM_Create on accountsystem failed");
 	
 	Com_Printf("created VM\n");
-	//VM_Call(asvm, AS_INIT); */
+	VM_Call(asvm, AS_INIT);
 }

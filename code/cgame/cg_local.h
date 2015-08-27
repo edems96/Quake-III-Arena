@@ -322,6 +322,8 @@ typedef struct {
 	vec3_t			color2;
 
 	int				score;			// updated by score servercmds
+	// unsigned int kills;
+	// unsigned int deaths;
 	int				location;		// location index for team mode
 	int				health;			// you only get this info about your teammates
 	int				armor;
