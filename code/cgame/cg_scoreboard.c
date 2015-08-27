@@ -53,11 +53,20 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define SB_SCORELINE_X		112
 
 #define SB_RATING_WIDTH	    (6 * BIGCHAR_WIDTH) // width 6
+
 #define SB_SCORE_X			(SB_SCORELINE_X + BIGCHAR_WIDTH) // width 6
 #define SB_RATING_X			(SB_SCORELINE_X + 6 * BIGCHAR_WIDTH) // width 6
 #define SB_PING_X			(SB_SCORELINE_X + 12 * BIGCHAR_WIDTH + 8) // width 5
 #define SB_TIME_X			(SB_SCORELINE_X + 17 * BIGCHAR_WIDTH + 8) // width 5
 #define SB_NAME_X			(SB_SCORELINE_X + 22 * BIGCHAR_WIDTH) // width 15
+
+/*
+#define SB_NAME_X			(SB_SCORELINE_X + BIGCHAR_WIDTH) // width 15
+#define SB_SCORE_X			(SB_SCORELINE_X + 6 * BIGCHAR_WIDTH) // width 6
+#define SB_RATING_X			(SB_SCORELINE_X + 12 * BIGCHAR_WIDTH) // width 6
+#define SB_PING_X			(SB_SCORELINE_X + 17 * BIGCHAR_WIDTH + 8) // width 5
+#define SB_TIME_X			(SB_SCORELINE_X + 22 * BIGCHAR_WIDTH + 8) // width 5
+*/
 
 // The new and improved score board
 //
@@ -73,7 +82,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 static qboolean localClient; // true if local client has been displayed
 
 
-							 /*
+/*
 =================
 CG_DrawScoreboard
 =================
@@ -149,35 +158,18 @@ static void CG_DrawClientScore( int y, score_t *score, float *color, float fade,
 	// draw the face
 	VectorClear( headAngles );
 	headAngles[YAW] = 180;
-	if( largeFormat ) {
-		CG_DrawHead( headx, y - ( ICON_SIZE - BIGCHAR_HEIGHT ) / 2, ICON_SIZE, ICON_SIZE, 
-			score->client, headAngles );
-	}
-	else {
+	if( largeFormat )
+		CG_DrawHead( headx, y - ( ICON_SIZE - BIGCHAR_HEIGHT ) / 2, ICON_SIZE, ICON_SIZE, score->client, headAngles );
+	else 
 		CG_DrawHead( headx, y, 16, 16, score->client, headAngles );
-	}
 
-#ifdef MISSIONPACK
-	// draw the team task
-	if ( ci->teamTask != TEAMTASK_NONE ) {
-		if ( ci->teamTask == TEAMTASK_OFFENSE ) {
-			CG_DrawPic( headx + 48, y, 16, 16, cgs.media.assaultShader );
-		}
-		else if ( ci->teamTask == TEAMTASK_DEFENSE ) {
-			CG_DrawPic( headx + 48, y, 16, 16, cgs.media.defendShader );
-		}
-	}
-#endif
 	// draw the score line
 	if ( score->ping == -1 ) {
-		Com_sprintf(string, sizeof(string),
-			" connecting    %s", ci->name);
+		Com_sprintf(string, sizeof(string), " connecting    %s", ci->name);
 	} else if ( ci->team == TEAM_SPECTATOR ) {
-		Com_sprintf(string, sizeof(string),
-			" SPECT %3i %4i %s", score->ping, score->time, ci->name);
+		Com_sprintf(string, sizeof(string), " SPECT %3i %4i %s", score->ping, score->time, ci->name);
 	} else {
-		Com_sprintf(string, sizeof(string),
-			"%5i %4i %4i %s", score->score, score->ping, score->time, ci->name);
+		Com_sprintf(string, sizeof(string), "%s %5i %4i %4i", ci->name, score->score, score->ping, score->time);
 	}
 
 	// highlight your position
@@ -216,7 +208,9 @@ static void CG_DrawClientScore( int y, score_t *score, float *color, float fade,
 			640 - SB_SCORELINE_X - BIGCHAR_WIDTH, BIGCHAR_HEIGHT+1, hcolor );
 	}
 
-	CG_DrawBigString( SB_SCORELINE_X + (SB_RATING_WIDTH / 2), y, string, fade );
+	vec4_t line_color = { 1.0f, 0.0f, 0.0f, 1.0f };
+	//CG_DrawSmallString( SB_SCORELINE_X + (SB_RATING_WIDTH / 2), y, string, fade ); // big
+	CG_DrawStr(SB_SCORELINE_X + (SB_RATING_WIDTH / 2), y, string, 8, line_color);
 
 	// add the "ready" marker for intermission exiting
 	if ( cg.snap->ps.stats[ STAT_CLIENTS_READY ] & ( 1 << score->client ) ) {

@@ -161,8 +161,7 @@ to a fixed color.
 Coordinates are at 640 by 480 virtual resolution
 ==================
 */
-void CG_DrawStringExt( int x, int y, const char *string, const float *setColor, 
-		qboolean forceColor, qboolean shadow, int charWidth, int charHeight, int maxChars ) {
+void CG_DrawStringExt( int x, int y, const char *string, const float *setColor, qboolean forceColor, qboolean shadow, int charWidth, int charHeight, int maxChars ) {
 	vec4_t		color;
 	const char	*s;
 	int			xx;
@@ -212,6 +211,10 @@ void CG_DrawStringExt( int x, int y, const char *string, const float *setColor,
 		s++;
 	}
 	trap_R_SetColor( NULL );
+}
+
+void CG_DrawString(int x, int y, const char *str, unsigned int size, vec4_t color) {
+	CG_DrawStringExt(x, y, str, color, qtrue, qfalse, size, size, 0);
 }
 
 void CG_DrawBigString( int x, int y, const char *s, float alpha ) {
