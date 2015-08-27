@@ -138,9 +138,6 @@
     <ClCompile Include="qcommon\vm.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qcommon\vm_x86.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="win32\win_input.c">
       <Filter>Source Files</Filter>
     </ClCompile>

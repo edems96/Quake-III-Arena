@@ -31,17 +31,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include <sys/mman.h> // for PROT_ stuff
 #endif
 
-/*
-
-  eax	scratch
-  ebx	scratch
-  ecx	scratch (required for shifts)
-  edx	scratch (required for divisions)
-  esi	program stack
-  edi	opstack
-
-*/
-
 // TTimo: initialised the statics, this fixes a crash when entering a compiled VM 
 static	byte	*buf = NULL;
 static	byte	*jused = NULL;
@@ -54,14 +43,6 @@ static	int		*instructionPointers = NULL;
 #define FTOL_PTR
 
 #ifdef _WIN32
-
-#if defined( FTOL_PTR )
-int _ftol( float );
-static	int		ftolPtr = (int)_ftol;
-#endif
-
-void AsmCall( void );
-static	int		asmCallPtr = (int)AsmCall;
 
 #else // _WIN32
 
@@ -89,99 +70,3 @@ static	int		callMask = 0; // bk001213 - init
 static	int	instruction, pass;
 static	int	lastConst = 0;
 static	int	oc0, oc1, pop0, pop1;
-
-typedef enum 
-{
-	LAST_COMMAND_NONE	= 0,
-	LAST_COMMAND_MOV_EDI_EAX,
-	LAST_COMMAND_SUB_DI_4,
-	LAST_COMMAND_SUB_DI_8,
-} ELastCommand;
-
-static	ELastCommand	LastCommand;
-static int	Constant4( void ) {
-	int		v;
-
-	v = code[pc] | (code[pc+1]<<8) | (code[pc+2]<<16) | (code[pc+3]<<24);
-	pc += 4;
-	return v;
-}
-
-static int	Constant1( void ) {
-	int		v;
-
-	v = code[pc];
-	pc += 1;
-	return v;
-}
-
-static void Emit1( int v ) 
-{
-	buf[ compiledOfs ] = v;
-	compiledOfs++;
-
-	LastCommand = LAST_COMMAND_NONE;
-}
-
-static void Emit4( int v ) {
-	Emit1( v & 255 );
-	Emit1( ( v >> 8 ) & 255 );
-	Emit1( ( v >> 16 ) & 255 );
-	Emit1( ( v >> 24 ) & 255 );
-}
-
-static int Hex( int c ) {
-	if ( c >= 'a' && c <= 'f' ) {
-		return 10 + c - 'a';
-	}
-	if ( c >= 'A' && c <= 'F' ) {
-		return 10 + c - 'A';
-	}
-	if ( c >= '0' && c <= '9' ) {
-		return c - '0';
-	}
-
-	Com_Error( ERR_DROP, "Hex: bad char '%c'", c );
-
-	return 0;
-}
-static void EmitString( const char *string ) {
-	int		c1, c2;
-	int		v;
-
-	while ( 1 ) {
-		c1 = string[0];
-		c2 = string[1];
-
-		v = ( Hex( c1 ) << 4 ) | Hex( c2 );
-		Emit1( v );
-
-		if ( !string[2] ) {
-			break;
-		}
-		string += 3;
-	}
-}
-
-
-
-static void EmitCommand(ELastCommand command)
-{
-	switch(command)
-	{
-		case LAST_COMMAND_MOV_EDI_EAX:
-			EmitString( "89 07" );		// mov dword ptr [edi], eax
-			break;
-
-		case LAST_COMMAND_SUB_DI_4:
-			EmitString( "83 EF 04" );	// sub edi, 4
-			break;
-
-		case LAST_COMMAND_SUB_DI_8:
-			EmitString( "83 EF 08" );	// sub edi, 8
-			break;
-		default:
-			break;
-	}
-	LastCommand = command;
-}

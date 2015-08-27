@@ -577,7 +577,7 @@ void BotCTFSeekGoals(bot_state_t *bs) {
 					bs->ltgtype = LTG_TEAMACCOMPANY;
 					bs->formation_dist = 3.5 * 32;		//3.5 meter
 					BotSetTeamStatus(bs);
-					bs->owndecision_time = FloatTime() + 5;
+					bs->owndecision_time = (int)(FloatTime() + 5);
 				}
 			}
 		}
