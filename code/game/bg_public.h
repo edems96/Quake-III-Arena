@@ -416,7 +416,6 @@ typedef enum {
 	EV_GIB_PLAYER,			// gib a previously living player
 	EV_SCOREPLUM,			// score plum
 
-//#ifdef MISSIONPACK
 	EV_PROXIMITY_MINE_STICK,
 	EV_PROXIMITY_MINE_TRIGGER,
 	EV_KAMIKAZE,			// kamikaze explodes
@@ -425,7 +424,6 @@ typedef enum {
 	EV_INVUL_IMPACT,		// invulnerability sphere impact
 	EV_JUICED,				// invulnerability juiced effect
 	EV_LIGHTNINGBOLT,		// lightning bolt bounced of invulnerability sphere
-//#endif
 
 	EV_DEBUG_LINE,
 	EV_STOPLOOPINGSOUND,

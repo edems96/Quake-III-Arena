@@ -213,7 +213,7 @@ void CG_DrawStringExt( int x, int y, const char *string, const float *setColor, 
 	trap_R_SetColor( NULL );
 }
 
-void CG_DrawString(int x, int y, const char *str, unsigned int size, vec4_t color) {
+void CG_DrawStr(int x, int y, const char *str, unsigned int size, vec4_t color) {
 	CG_DrawStringExt(x, y, str, color, qtrue, qfalse, size, size, 0);
 }
 
